@@ -1,18 +1,26 @@
 #navbar{
-  background-color: yellow;
+  background-color: #33CCFF;
+  color: white;
 }
 
 h1{
-  color: green;
+  color: blue;
 }
 
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+h2{
+  color: green;
 }
 
 .jumbotron{
     text-align:center;
+}
+
+.col-lg-4 col-xs-12 thumbnail.img {
+  width: 200px; /* You can set the dimensions to whatever you want */
+  height: 200px;
+  object-fit: cover;
+}
+
+th{
+  text-align:center; 
 }

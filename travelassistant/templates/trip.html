@@ -3,8 +3,66 @@
 
 
 <div class="container">
-  <h1>Start Plan your trip!</h1>
+  
+  <!-- Section 1 -->
+  <!-- Search by Keywords -->
+  <h1>Already know where to go?</h1>
+  <div class="form">
+    <form method="POST">
 
+      {% csrf_token %}
+      <!-- {{ trip_search_box_form.as_p }} -->
+      <div class="form-group">
+        <!-- {{ trip_search_box_form.city.label_tag }} -->
+        <!-- {{ trip_search_box_form.spot.label_tag }} -->
+        {{ trip_search_box_form.city}}
+        {{ trip_search_box_form.spot}}
+      </div>
+      <div class="form-group">
+        <!-- {{ trip_search_box_form.keyword.label_tag }} -->
+        {{ trip_search_box_form.keyword}}
+      </div>
+      <input name="submit" type="submit" value="Search">
+    </form>
+  </div>
+
+  <hr>
+  <!-- Section 2 -->
+  <!-- Advanced Search -->
+  <h1>Advanced Search</h1>
+  <h3>Tell us what attractions you are interested and what type of food you love!</h3>
+  <h3>Choose where you live and the city and let us guide you!</h3>
+  <div class="form">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ advanced_search_form.city.label_tag}}
+        {{ advanced_search_form.city}}
+      </div>
+      <div class="form-group">
+        {{ advanced_search_form.attraction_category.label_tag}}
+        Keywords for attractions categories, e.g. museum.
+        {{ advanced_search_form.attraction_category}}
+        
+        <br>
+        {{ advanced_search_form.restaurant_category.label_tag}}
+        Keywords for resstaurants categories, e.g. japanese.
+        {{ advanced_search_form.restaurant_category}}
+
+        <br>
+        {{ advanced_search_form.accommodations_keyword.label_tag}}
+        Keywords for where you live.
+        {{ advanced_search_form.accommodations_keyword}}
+      </div>
+      <input name="submit" type="submit" value="Choose where you live in the city?">
+    </form>
+  </div>
+
+  <hr>
+  <!-- Section 3 -->
+  <!-- Search by Selection -->
+
+  <h1>Need our recommendations?</h1>
   <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
         Choose Your Destination
@@ -18,16 +76,130 @@
       </ul>
   </div>
 
-
-    <h2>Start your journey</h2>
-
-    <div class="row">
-      <div class="col-lg-4 col-xs-12 thumbnail "><img src="https://images.squarespace-cdn.com/content/v1/53b839afe4b07ea978436183/1608506169128-S6KYNEV61LEP5MS1UIH4/traditional-food-around-the-world-Travlinmad.jpg" alt=""><p style="text-align:center">Food</p></div>
-      <div class="col-lg-4 col-xs-12 thumbnail "><img src="https://cdn.britannica.com/96/115096-050-5AFDAF5D/Bellagio-Hotel-Casino-Las-Vegas.jpg" alt=""><p style="text-align:center">Hotel</p></div>
-      <div class="col-lg-4 col-xs-12 thumbnail "><img src="https://www.telegraph.co.uk/content/dam/Travel/Destinations/North%20America/USA/Las%20Vegas/las-vegas-lead-image-xlarge.jpg?imwidth=640" alt=""><p style="text-align:center">Fun</p></div>
+  <h2>Start your journey</h2>
+  <div class="row">
+    <div class="col-lg-4 col-xs-12 thumbnail ">
+      <img src="https://www.telegraph.co.uk/content/dam/Travel/Destinations/North%20America/USA/Las%20Vegas/las-vegas-lead-image-xlarge.jpg?imwidth=640" alt="" >
+      <p style="text-align:center">Fun</p>
+      <!-- choose fun valuables -->
+      <div class="col-sm-4">
+        <div data-role="main" class="ui-content">
+          <form method="post" action="/action_page_post.php">
+            <div data-role="rangeslider">
+              <label for="price-min">Price:</label>
+              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="dropdown">
+            <label for="price-min">Type:</label> <br>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Choose the attraction type
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Museum</a></li>
+                <li><a href="#">Nature</a></li>
+                <li><a href="#">Park</a></li>
+                <li><a href="#">Amusement Park</a></li>
+                <li><a href="#">Beach</a></li>
+            </ul>
+        </div>
+      </div>
     </div>
 
+    <div class="col-lg-4 col-xs-12 thumbnail ">
+      <img src="https://media-cdn.tripadvisor.com/media/photo-s/1a/c3/e1/9d/ocean-coral-spring.jpg" alt="" >
+      <p style="text-align:center">Hotel</p>
+      <!-- choose hotel valuables -->
+      <div class="col-sm-4">
+        <div data-role="main" class="ui-content">
+          <form method="post" action="/action_page_post.php">
+            <div data-role="rangeslider">
+              <label for="price-min">Price:</label>
+              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="dropdown">
+            <label for="price-min">People:</label> <br>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Choose the number of people
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3-4</a></li>
+                <li><a href="#">5-10</a></li>
+                <li><a href="#">>10</a></li>
+            </ul>
+        </div><br>
+        <div class="dropdown">
+            <label for="price-min">Room:</label> <br>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Choose the number of room
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3-4</a></li>
+                <li><a href="#">>5</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-lg-4 col-xs-12 thumbnail ">
+      <img src="https://images.squarespace-cdn.com/content/v1/53b839afe4b07ea978436183/1608506169128-S6KYNEV61LEP5MS1UIH4/traditional-food-around-the-world-Travlinmad.jpg" alt="" >
+      <p style="text-align:center">Food</p>
+      <!-- choose food valuables -->
+      <div class="col-sm-4">
+        <div data-role="main" class="ui-content">
+          <form method="post" action="/action_page_post.php">
+            <div data-role="rangeslider">
+              <label for="price-min">Price:</label>
+              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="dropdown">
+            <label for="price-min">Type:</label> <br>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Choose the food type
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">American</a></li>
+                <li><a href="#">Chinese</a></li>
+                <li><a href="#">Italian</a></li>
+                <li><a href="#">Japanese</a></li>
+                <li><a href="#">French</a></li>
+            </ul>
+        </div>
+        <br>
+
+        <div class="dropdown">
+            <label for="price-min">Rating:</label> <br>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Choose the rating
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <!-- Add Results Here -->
+  <!-- No results showed on the start page -->
 
 </div>
+
 {% endblock %}

@@ -1,0 +1,13 @@
+{% for c in dataset %}
+<table>
+    <tr>
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.city_name}}</td>
+        <td>{{c.state}}</td>
+        <td>{{c.country}}</td>
+        <!-- <td>{{c.introduction}}</td> -->
+        <td>{{c.area}}</td>
+        <td>{{c.temperature}}</td>
+    </tr>
+</table>
+{% endfor %}

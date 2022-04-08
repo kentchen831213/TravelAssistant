@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+ 
+{% block title %}register{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="col-6 offset-md-2">
+          <form method="post">
+ 
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+                
+                {% csrf_token %}
+                <h2 class="text-left">Update My Account</h2>
+                <h3>{{ update_form.user_id.label_tag }}   {{ user_id }}</h3>
+
+                <div class="form-group">
+                    {{ update_form.user_id.label_tag }}
+                    {{ update_form.user_id}}
+                </div>
+                <div class="form-group">
+                    {{ update_form.first_name.label_tag }}
+                    {{ update_form.first_name }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.last_name.label_tag }}
+                    {{ update_form.last_name }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.gender.label_tag }}
+                    {{ update_form.gender }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.email.label_tag }}
+                    {{ update_form.email }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.phone.label_tag }}
+                    {{ update_form.phone }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.city.label_tag }}
+                    {{ update_form.city }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.birth_date.label_tag }}
+                    {{ update_form.birth_date }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.password.label_tag }}
+                    {{ update_form.password }}
+                </div>
+                <div class="form-group">
+                    {{ update_form.password_validation.label_tag }}
+                    {{ update_form.password_validation }}
+                </div>
+
+                <button type="submit" class="btn btn-primary pull-center">Update</button>
+    
+          </form>
+        </div>
+    </div>
+{% endblock %}

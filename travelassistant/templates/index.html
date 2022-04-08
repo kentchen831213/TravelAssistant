@@ -4,32 +4,56 @@
 
 
   <div class="container">
+
       <div class="jumbotron">
         <h2 class="text-center">Welcome to Travel Assistant!</h2>
-        <img class="text-center" src="https://cdn.aarp.net/content/dam/aarp/travel/destinations/2020/09/1140-yosemite-hero.imgcache.rev.web.900.513.jpg" width="750">
         <h4>Get start on your vacation planning by exploring Travel Assistant!</h4>
 
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol>
 
-        <ol>
-          <li>Create a general landing page with a JumboTron</li>
-          <li>Next create a NavBar on the Page that links to another html file</li>
-          <li>Add two paragrahs of lorem-ipsum below the jumbotron</li>
-          <li>Next use the Grid system to add in thumbnail pictures of coffee. Source: https://stocksnap.io/search/coffee You will need to use the thumbnail class for this. Here are the image links:
-            <ul>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/04LDEYRW59.jpg">One</a></li>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/90V03Q5Y60.jpg">Two</a></li>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/O83SF2RB6D.jpg">Three</a></li>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/5JVPSVP7EI.jpg">Four</a></li>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/C5Y10KIIHA.jpg">Five</a></li>
-              <li><a href="https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/YSSFRY5B25.jpg">Six</a></li>
-            </ul>
-          </li>
-          <li>Next make sure that at the largest settings you have 3 columns of pictures. On the smallest screen settings you should have 2 columns. Its up to you where you want to change.</li>
-          <li>Next create another html file for the sign up page.</li>
-          <li>Create a Form on this Sign Up page with Email, Password, and a Check Box</li>
-        </ol>
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp" alt="first_picture">
+              <div class="carousel-caption">
+                “The journey is my home” – Muriel Rukeyser
+              </div>
+            </div>
+            <div class="item">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp" alt="second_picture">
+              <div class="carousel-caption">
+                “To travel is to live” – Hans Christian Anderson
+              </div>
+            </div>
+            <div class="item">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp" alt="third_picture">
+              <div class="carousel-caption">
+                Life is a journey, not a destination” – Ralph Waldo Emerson
+              </div>
+            </div>
+          </div>
 
-        <h4>That's it. Feel free to play around with this project and style it more to your liking. The main focuses of this project are the uses of NavBar, Jumbotron, Form, Container, and the Grid System.</h4>
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
       </div>
-    </div>
+
+
+  </div>
+
+
 {% endblock %}

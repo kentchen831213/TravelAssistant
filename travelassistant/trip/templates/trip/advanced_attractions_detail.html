@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid rgba(29, 6, 99, 0.586);
+    }
+</style>
+
+<h1> Search attractions that are near your accommodation</h1>
+
+<div class="container">
+    <h1>{{object.ac_name}}</h1>
+    <ul style="list-style-type:none;">
+        <li>city - {{object.city_name}}</li>
+        <li>average rating - {{object.avg_rating}}</li>
+        <li>type - {{object.type}}</li>
+        <li>County - {{object.county}}</li>
+        <li>price level - {{object.price_level}}</li>
+    </ul>
+
+    <table style="width:60%">
+        <tr>
+            <th>Attraction</th>
+            <th>Restaurant</th>
+            <th>Distance between attraction and accomodation</th>
+            <th>Distance between attraction and restaurant</th>
+        </tr>
+        {% for s in tourtist_list %}
+        <tr>
+            <td>{{s.a_name}}</td>
+            <td>{{s.r_name}}</td>
+            <td>{{s.ac_a_distance}}</td>
+            <td>{{s.a_r_distance}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

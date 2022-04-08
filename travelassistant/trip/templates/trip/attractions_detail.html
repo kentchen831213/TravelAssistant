@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>{{object.a_name}}</h1>
+    <ul style="list-style-type:none;">
+        <li>category - {{object.category}}</li>
+        <li>city - {{object.city_name}}</li>
+        <li>ranking - {{object.ranking}}</li>
+        <li>address - {{object.a_address}}</li>
+    </ul>
+
+    <form method="POST"> 
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type='submit' value='comment'>
+    </form>
+</div>
+{% endblock %}

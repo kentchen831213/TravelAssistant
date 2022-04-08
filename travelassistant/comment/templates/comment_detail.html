@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <h2>This is your comment!</h2>
+  <h3>UserID: {{user_id}}</h3> 
+    
+  <h2>Your Comments for Restaurants</h2>
+  <table>
+    <tr>
+        <th>Name</th>
+        <th>Comment Date</th>
+        <th>Comment content</th>
+        <th>Action</th>
+    </tr>
+    {% for c in restaurant_comment_result %}
+
+      <tr>
+        <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td>{{c.r_name}}</td>
+            <td>{{c.date}}</td>
+            <td>{{c.comment}}</td>
+            <!-- <td><button>Delete</button></td> -->
+            <td><input name="submit" type="submit" value="Delete Restaurants Comment"></td>
+            <td> </td>
+        </form>
+        <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+          {% csrf_token %}
+          <td><input name="submit" type="submit" value="Edit Restaurants Comment"></td>
+        </form>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <h2>Your Comments for Accommodations</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Comment Date</th>
+      <th>Comment content</th>
+      <th>Action</th>
+  </tr>
+    {% for c in accommodations_comment_result %}
+      <tr>
+        <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td>{{c.ac_name}}</td>
+            <td>{{c.date}}</td>
+            <td>{{c.comment}}</td>
+            <!-- <td><button>Delete</button></td> -->
+            <td><input name="submit" type="submit" value="Delete Accommodations Comment"></td>
+            <td> </td>
+        </form>
+        <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+          {% csrf_token %}
+          <td><input name="submit" type="submit" value="Edit Accommodations Comment"></td>
+        </form>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <h2>Your Comments for Attractions</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Comment Date</th>
+      <th>Comment content</th>
+      <th>Action</th>
+  </tr>
+    {% for c in attractions_comment_result %}
+      <tr>
+        <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td>{{c.a_name}}</td>
+            <td>{{c.date}}</td>
+            <td>{{c.comment}}</td>
+            <!-- <td><button>Delete</button></td> -->
+            <td><input name="submit" type="submit" value="Delete Attractions Comment"></td>
+            <td> </td>
+        </form>
+        <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+          {% csrf_token %}
+          <td><input name="submit" type="submit" value="Edit Attractions Comment"></td>
+        </form>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

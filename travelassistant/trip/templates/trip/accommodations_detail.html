@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<!-- <style>
+    table,
+    th,
+    td {
+        border: 1px solid rgba(29, 6, 99, 0.586);
+    }
+</style> -->
+
+<div class="container">
+    <h1>{{object.ac_name}}</h1>
+    <h3> Information </h3>
+    <ul style="list-style-type:none;">
+        <li>city - {{object.city_name}}</li>
+        <li>average rating - {{object.avg_rating}}</li>
+        <li>type - {{object.type}}</li>
+        <li>County - {{object.county}}</li>
+        <li>price level - {{object.price_level}}</li>
+    </ul>
+    <hr>
+    <h3> Laundry and Market </h3>
+    <table style="width:60%">
+        <tr>
+            <th>name</th>
+            <th>type</th>
+            <th>distance</th>
+        </tr>
+        {% for l in laundrymarket %}
+        <tr>
+            <td>{{l.name}}</td>
+            <td>{{l.type}}</td>
+            <td>{{l.distance}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <hr>
+    <div class="container">
+        <form method="POST"> 
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <input type='submit' value='comment'>
+        </form>
+    </div>
+</div>
+{% endblock %}

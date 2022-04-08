@@ -15,14 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url,include
+from django.urls import include, re_path
+from django.conf import settings #add this
 from . import views
+from django.conf.urls.static import static #add this
+
+
+
+# from trip.views import test, search_restaurants
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^$',views.HomePage.as_view(),name='home'),
-    url(r'^accounts/',include('accounts.urls',namespace='accounts')),
-    url(r'^accounts/',include('django.contrib.auth.urls')),
-    url(r'^trip/$',views.TripPage.as_view(),name='trip'),
-    url(r'^thanks/$',views.ThanksPage.as_view(),name='thanks')
-]
+    re_path('admin/', admin.site.urls),
+    re_path(r'^$',views.HomePage.as_view(), name='home'),
+    # re_path(r'^comment/', include('comment.urls', namespace='comment')),
+    re_path(r'^comment/', include('comment.urls', namespace='comment')),
+    re_path(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    re_path(r'^trip/', include('trip.urls', namespace='trip')),
+    # re_path(r'^trip/$', views.TripPage, name='trip'),
+    # re_path(r'^thanks/$', views.ThankPage.as_view(), name='thanks'),
+    # path(r'test', test),
+    # url(r'trip', search_restaurants, name='search_restaurants'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
