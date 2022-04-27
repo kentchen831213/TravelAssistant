@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1>Edit Your Comment!</h1>
+    {% if edit_type == "restaurants_comments" %}
+    <h2>{{object.r_name}}</h2>
+    <ul style="list-style-type:none;">
+        <li>category - {{object.category}}</li>
+        <li>city - {{object.city_name}}</li>
+        <li>average rating - {{object.avg_rating}}</li>
+        <li>description - {{object.description}}</li>
+        <li>address - {{object.r_address}}</li>
+        <li>price level - {{object.price_level}}</li>
+    </ul>
+    <h1>{{r_comment}}</h1>
+    <form method="POST" action="{% url 'comment:comment-update'  comment_id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input name="comment_button" type="submit" value="Update Restaurants Comment">
+    </form>
+
+    {% elif edit_type == "accommodations_comments" %}
+    <h2>{{object.r_name}}</h2>
+    <ul style="list-style-type:none;">
+        <li>city - {{object.city_name}}</li>
+        <li>average rating - {{object.avg_rating}}</li>
+        <li>type - {{object.type}}</li>
+        <li>County - {{object.county}}</li>
+        <li>price level - {{object.price_level}}</li>
+    </ul>
+    <h1>{{r_comment}}</h1>
+    <form method="POST" action="{% url 'comment:comment-update' comment_id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input name="comment_button" type="submit" value="Update Accommodations Comment">
+    </form>
+
+    {% elif edit_type == "attractions_comments" %}
+    <h2>{{object.r_name}}</h2>
+    <ul style="list-style-type:none;">
+        <li>category - {{object.category}}</li>
+        <li>city - {{object.city_name}}</li>
+        <li>ranking - {{object.ranking}}</li>
+        <li>address - {{object.a_address}}</li>
+    </ul>
+    <h1>{{r_comment}}</h1>
+    <form method="POST" action="{% url 'comment:comment-update' comment_id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input name="comment_button" type="submit" value="Update Attractions Comment">
+    </form>
+    {% endif %}
+</div>
+
+
+{% endblock %}

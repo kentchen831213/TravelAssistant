@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    <!-- Show Current User Information -->
+    <div>
+        <h3>Account Information</h3>
+        <ul style="list-style-type:none;">
+            <li>UserID - {{user.user_id}}</li>
+            <li>First Name - {{user.first_name}}</li>
+            <li>Last Name - {{user.last_name}}</li>
+            <li>Email - {{user.email}}</li>
+            <li>Phone - {{user.phone}}</li>
+            <li>City - {{user.city}}</li>
+            <li>Birth Date - {{user.birth_date}}</li>
+            <!-- <li>password - {{user.password}}</li> -->
+            { form.as_p }
+        </ul>
+      </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <!-- Show Current User Information -->
+    <div>
+        <h3>Account Information</h3>
+        <ul style="list-style-type:none;">
+            <li>UserID - {{user.user_id}}</li>
+            <li>First Name - {{user.first_name}}</li>
+            <li>Last Name - {{user.last_name}}</li>
+            <li>Email - {{user.email}}</li>
+            <li>Phone - {{user.phone}}</li>
+            <li>City - {{user.city}}</li>
+            <li>Birth Date - {{user.birth_date}}</li>
+            <!-- <li>password - {{user.password}}</li> -->
+        </ul>
+
+        <form  action="account_image" method="post">
+          {% csrf_token %}
+          {{ userimage.as_p }}
+           <button type="submit" name="button">Upload</button>
+        </form>
+    </div>
+    <hr>
+
+    <!-- Choices for updating the information or delete the information -->
+    <div>
+        <h3>Account Actions</h3>
+        <form action="delete_account">
+            {% csrf_token %}
+            <button type="submit">Delete The Account</button>
+        </form>
+
+        <form action="update_account">
+            {% csrf_token %}
+            <button type="submit">Update Your Information</button>
+        </form>
+    </div>
+    <hr>
+</div>
+
+
+{% endblock %}
