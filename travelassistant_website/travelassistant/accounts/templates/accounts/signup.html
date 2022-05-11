@@ -1,73 +1,84 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  {% include "manager.html" %}
+    <body>
+        {% include "navbar.html" %}
+        <br>
 
-{% block title %}register{% endblock %}
-{% block content %}
-    <div class="container">
-        <div class="col-6 offset-md-2">
-          <form class='form-signup' action="/accounts/signup/" enctype="multipart/form-data" method="post" >
+        <!-- {% block title %}register{% endblock %} -->
+        {% block content %}
+        <div class="col-8 offset-md-2">
+            <form class='form-signup' action="/accounts/signup/" enctype="multipart/form-data" method="post" >
 
-              {% if message %}
-                  <div class="alert alert-warning">{{ message }}</div>
-              {% endif %}
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
 
-              {% csrf_token %}
-              <h2 class="text-center">Sigunup for an account!</h2>
-              <div class="form-group">
-                  {{ signup_form.user_id.label_tag }}
-                  {{ signup_form.user_id}}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.first_name.label_tag }}
-                  {{ signup_form.first_name }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.last_name.label_tag }}
-                  {{ signup_form.last_name }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.gender.label_tag }}
-                  {{ signup_form.gender }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.email.label_tag }}
-                  {{ signup_form.email }}
-              </div>
-              <div class="form-group">
+                {% csrf_token %}
+                <h2 class="text-center">Sigunup for an account!</h2>
+                <div class="form-group">
+                    {{ signup_form.user_id.label_tag }}
+                    {{ signup_form.user_id}}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.first_name.label_tag }}
+                    {{ signup_form.first_name }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.last_name.label_tag }}
+                    {{ signup_form.last_name }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.gender.label_tag }}
+                    {{ signup_form.gender }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.email.label_tag }}
+                    {{ signup_form.email }}
+                </div>
+                <div class="form-group">
                 {{ signup_form.phone.label_tag }}
                 {{ signup_form.phone }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.city.label_tag }}
-                  {{ signup_form.city }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.birth_date.label_tag }}
-                  {{ signup_form.birth_date }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.password.label_tag }}
-                  {{ signup_form.password }}
-              </div>
-              <div class="form-group">
-                  {{ signup_form.password_validation.label_tag }}
-                  {{ signup_form.password_validation }}
-              </div>
-              <!-- <div class="form-group">
-                  {{ signup_form.personal_pic.label_tag }}
-                  {{ signup_form.personal_pic }}
-              </div> -->
-              <!--
-              <div class="form-group">
-                  {{ signup_form.captcha.errors }}
-                  {{ signup_form.captcha.label_tag }}
-                  {{ signup_form.captcha }}
-              </div>
-              -->
+                </div>
+                <div class="form-group">
+                    {{ signup_form.city.label_tag }}
+                    {{ signup_form.city }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.birth_date.label_tag }}
+                    {{ signup_form.birth_date }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.password.label_tag }}
+                    {{ signup_form.password }}
+                </div>
+                <div class="form-group">
+                    {{ signup_form.password_validation.label_tag }}
+                    {{ signup_form.password_validation }}
+                </div>
+                <!-- <div class="form-group">
+                    {{ signup_form.personal_pic.label_tag }}
+                    {{ signup_form.personal_pic }}
+                </div> -->
+                <!--
+                <div class="form-group">
+                    {{ signup_form.captcha.errors }}
+                    {{ signup_form.captcha.label_tag }}
+                    {{ signup_form.captcha }}
+                </div>
+                -->
 
-              <button type="reset" class="btn btn-default pull-left">reset</button>
-              <button type="submit" class="btn btn-primary pull-right">submit</button>
+                <button type="reset" class="btn btn-default pull-left">Reset</button>
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
 
-          </form>
-        </div>
-    </div> <!-- /container -->
-{% endblock %}
+            </form>
+
+            <br>
+            <br>
+            <br>
+        </div> <!-- /container -->
+
+        {% endblock %}
+
+    </body>

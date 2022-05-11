@@ -1,49 +1,97 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+{% include "manager.html" %}
 
-{% extends "base.html" %}
-{% block content %}
+  <script>
+    function initialize(){
+        const myLatLng = {lat:{{object.latitude}}, lng:{{object.longitude}}};
+        // console.log(myLatLng);
+        var mapProp = {
+            center:myLatLng,
+            zoom:15,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
 
-<!-- <style>
-    table,
-    th,
-    td {
-        border: 1px solid rgba(29, 6, 99, 0.586);
-    }
-</style> -->
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-<div class="container">
-    <h1>{{object.ac_name}}</h1>
-    <h3> Information </h3>
-    <ul style="list-style-type:none;">
-        <li>city - {{object.city_name}}</li>
-        <li>average rating - {{object.avg_rating}}</li>
-        <li>type - {{object.type}}</li>
-        <li>County - {{object.county}}</li>
-        <li>price level - {{object.price_level}}</li>
-    </ul>
-    <hr>
-    <h3> Laundry and Market </h3>
-    <table style="width:60%">
-        <tr>
+        marker=new google.maps.Marker({
+            position:{lat:{{object.latitude}}, lng:{{object.longitude}}},
+            animation:google.maps.Animation.BOUNCE
+            });
+            marker.setMap(map);
+    };
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
+
+  <body>
+    {% include "navbar.html" %}
+    <br>
+    {% block content %}
+
+    <div class="container">
+      <div class="jumbotron" style="text-align: left">
+        <h2>{{object.ac_name}}</h2>
+        <hr />
+        <div class="row">
+          <div class="left-column">
+            <img
+              src="{% static image %}"
+              width="256"
+              height="192"
+              style="vertical-align: top"
+              alt="{{ object.attraction_id }}"
+            />
+          </div>
+          <div class="right-column">
+            <div>
+              <ul style="list-style-type: none">
+                <h3>Information</h3>
+                <li><h5>City: {{object.city_name.city_name}}</h5></li>
+                <li><h5>Average Rating: {{object.avg_rating}}</h5></li>
+                <li><h5>County: {{object.county}}</h5></li>
+                <li><h5>Price: ${{object.price_level}}</h5></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <hr/>
+        <div id="googleMap" style="width:auto; height:300px;"></div>
+      </div>
+      <hr>
+
+      <div style="margin-left: 2%">
+        <h3>Laundry and Market</h3>
+        <table class="table" style="width: 60%">
+          <tr>
             <th>name</th>
             <th>type</th>
             <th>distance</th>
-        </tr>
-        {% for l in laundrymarket %}
-        <tr>
+          </tr>
+          {% for l in laundrymarket %}
+          <tr>
             <td>{{l.name}}</td>
             <td>{{l.type}}</td>
             <td>{{l.distance}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <hr>
-    <div class="container">
-        <form method="POST"> 
-            {% csrf_token %}
-            {{ comment_form.as_p }}
-            <input type='submit' value='comment'>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <div class="container">
+        <hr>
+        <h3>Write Comment for {{object.r_name}} !</h3>
+        <form method="POST">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <input class="btn btn-primary" type="submit" value="comment" />
         </form>
+      </div>
     </div>
-</div>
-{% endblock %}
+    <br>
+    <br>
+    {% endblock %}
+  </body>
+</html>

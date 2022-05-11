@@ -1,218 +1,100 @@
-{% extends "base.html" %}
-{% block content %}
 
-<div class="container">
-  
-  <!-- Section 1 -->
-  <!-- Search by Keywords -->
-  <h1>Already know where to go?</h1>
-  <div class="form">
-    <form method="POST">
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  {% include "manager.html" %}
 
-      {% csrf_token %}
-      <!-- {{ trip_search_box_form.as_p }} -->
-      <div class="form-group">
-        <!-- {{ trip_search_box_form.city.label_tag }} -->
-        <!-- {{ trip_search_box_form.spot.label_tag }} -->
-        {{ trip_search_box_form.city}}
-        {{ trip_search_box_form.spot}}
-      </div>
-      <div class="form-group">
-        <!-- {{ trip_search_box_form.keyword.label_tag }} -->
-        {{ trip_search_box_form.keyword}}
-      </div>
-      <input name="submit" type="submit" value="Search">
-    </form>
-  </div>
+  <body>
+    {% include "navbar.html" %}
+    <br>
+    <div class="container">
+    {% include "trip_search.html" %}
+    <hr>
+    <!-- Add Results Here -->
+    <!-- No results showed on the start page -->
+      <div class="jumbotron" style="text-align:left;">
+        <div>
+          {% if form_result.is_valid and form_result.cleaned_data %}
+          <div>
+            <h3>Search for {{form_result.cleaned_data.city}}'s {{form_result.cleaned_data.spot}}</h3>
+            </br>
+            <!-- {{result_list}} -->
+            <ul style="list-style-type:none;">
+              {% for s in result_list %}
+              {% if s.type == 'Restaurants' %}
+              <div>
+                <li>
+                  <a href="{% url 'trip:restaurants-detail' s.id %}">
+                    <div class="row">
+                      <div class="left-column"><img src="{% static s.image %}" width="256" height="192"
+                          style="vertical-align:top" alt="{{ s.id }}"></div>
+                      <div class="right-column">
+                        <h3>{{s.name}}</h3>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <br>
+              </div>
 
-  <hr>
-  <!-- Section 2 -->
-  <!-- Advanced Search -->
-  <h1>Advanced Search</h1>
-  <h3>Tell us what attractions you are interested and what type of food you love!</h3>
-  <h3>Choose where you live and the city and let us guide you!</h3>
-  <div class="form">
-    <form method="POST">
-      {% csrf_token %}
-      <div class="form-group">
-        {{ advanced_search_form.city.label_tag}}
-        {{ advanced_search_form.city}}
-      </div>
-      <div class="form-group">
-        {{ advanced_search_form.attraction_category.label_tag}}
-        {{ advanced_search_form.attraction_category}}
-        {{ advanced_search_form.restaurant_category.label_tag}}
-        {{ advanced_search_form.restaurant_category}}
-      </div>
-      <input name="submit" type="submit" value="Choose where you live in the city?">
-    </form>
-  </div>
+              {% elif s.type == 'Attractions' %}
+              <div>
+                <li>
+                  <a href="{% url 'trip:attractions-detail' s.id %}">
+                    <div class="row">
+                      <div class="left-column"><img src="{% static s.image %}" width="256" height="192"
+                          style="vertical-align:top" alt="{{ s.id }}"></div>
+                      <div class="right-column">
+                        <h3>{{s.name}}</h3>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <br>
+              </div>
 
-  <hr>
-  <!-- Section 3 -->
-  <!-- Search by Selection -->
+              {% elif s.type == 'Accommodations' %}
+              <div>
+                <li>
+                  <a href="{% url 'trip:accommodations-detail' s.id %}">
+                    <div class="row">
+                      <div class="left-column"><img src="{% static s.image %}" width="256" height="192"
+                          style="vertical-align:top" alt="{{ s.id }}"></div>
+                      <div class="right-column">
+                        <h3>{{s.name}}</h3>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <br>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
 
-  <h1>Need our recommendations?</h1>
-  <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        Choose Your Destination
-      <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-          <li><a href="#">Austin</a></li>
-          <li><a href="#">Boston</a></li>
-          <li><a href="#">Chicago</a></li>
-          <li><a href="#">New York</a></li>
-          <li><a href="#">Portland</a></li>
-      </ul>
-  </div>
+            {% else %}
+            <h3> Hey! You forgot to search! </h3>
+            {% endif %}
 
-  <h2>Start your journey</h2>
-  <div class="row">
-    <div class="col-lg-4 col-xs-12 thumbnail ">
-      <img src="https://www.telegraph.co.uk/content/dam/Travel/Destinations/North%20America/USA/Las%20Vegas/las-vegas-lead-image-xlarge.jpg?imwidth=640" alt="" >
-      <p style="text-align:center">Fun</p>
-      <!-- choose fun valuables -->
-      <div class="col-sm-4">
-        <div data-role="main" class="ui-content">
-          <form method="post" action="/action_page_post.php">
-            <div data-role="rangeslider">
-              <label for="price-min">Price:</label>
-              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+            <div class='pagination justify-content-center'>
+              {% if result_list.has_previous %}
+              <a href='{% url "trip:trip_home" %}?page={{ result_list.previous_page_number }}'>Previous
+                Page</a>
+              {% endif %}
+
+              <span class='mx-4'>
+                Page {{ result_list.number }} of {{ result_list.paginator.num_pages }}
+              </span>
+
+              {% if result_list.has_next %}
+              <a href='{% url "trip:trip_home" %}?page={{ result_list.next_page_number }}'> Next</a>
+              {% endif %}
             </div>
-          </form>
-        </div>
-        <br>
-        <div class="dropdown">
-            <label for="price-min">Type:</label> <br>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-              Choose the attraction type
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Museum</a></li>
-                <li><a href="#">Nature</a></li>
-                <li><a href="#">Park</a></li>
-                <li><a href="#">Amusement Park</a></li>
-                <li><a href="#">Beach</a></li>
-            </ul>
+
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="col-lg-4 col-xs-12 thumbnail ">
-      <img src="https://media-cdn.tripadvisor.com/media/photo-s/1a/c3/e1/9d/ocean-coral-spring.jpg" alt="" >
-      <p style="text-align:center">Hotel</p>
-      <!-- choose hotel valuables -->
-      <div class="col-sm-4">
-        <div data-role="main" class="ui-content">
-          <form method="post" action="/action_page_post.php">
-            <div data-role="rangeslider">
-              <label for="price-min">Price:</label>
-              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
-            </div>
-          </form>
-        </div>
-        <br>
-        <div class="dropdown">
-            <label for="price-min">People:</label> <br>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-              Choose the number of people
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3-4</a></li>
-                <li><a href="#">5-10</a></li>
-                <li><a href="#">>10</a></li>
-            </ul>
-        </div><br>
-        <div class="dropdown">
-            <label for="price-min">Room:</label> <br>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-              Choose the number of room
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3-4</a></li>
-                <li><a href="#">>5</a></li>
-            </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-4 col-xs-12 thumbnail ">
-      <img src="https://images.squarespace-cdn.com/content/v1/53b839afe4b07ea978436183/1608506169128-S6KYNEV61LEP5MS1UIH4/traditional-food-around-the-world-Travlinmad.jpg" alt="" >
-      <p style="text-align:center">Food</p>
-      <!-- choose food valuables -->
-      <div class="col-sm-4">
-        <div data-role="main" class="ui-content">
-          <form method="post" action="/action_page_post.php">
-            <div data-role="rangeslider">
-              <label for="price-min">Price:</label>
-              <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
-            </div>
-          </form>
-        </div>
-        <br>
-        <div class="dropdown">
-            <label for="price-min">Type:</label> <br>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-              Choose the food type
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">American</a></li>
-                <li><a href="#">Chinese</a></li>
-                <li><a href="#">Italian</a></li>
-                <li><a href="#">Japanese</a></li>
-                <li><a href="#">French</a></li>
-            </ul>
-        </div>
-        <br>
-
-        <div class="dropdown">
-            <label for="price-min">Rating:</label> <br>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-              Choose the rating
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-  <!-- Add Results Here -->
-  <!-- No results showed on the start page -->
-  <div>
-    {% if form_result.is_valid and form_result.cleaned_data %}
-    
-    <div>
-      <h3>Search for {{form_result.cleaned_data.city}}'s {{form_result.cleaned_data.spot}}</h3>
-      </br>
-      <!-- {{result_list}} -->
-      <ul style="list-style-type:none;">
-          {% for s in result_list %}
-          {% if s.type == 'Restaurants' %}
-          <li><a href="{% url 'trip:restaurants-detail' s.id %}">{{s.name}}</a></li>
-          {% elif s.type == 'Attractions' %}
-          <li><a href="{% url 'trip:attractions-detail' s.id %}">{{s.name}}</a></li>
-          {% elif s.type == 'Accommodations' %}
-          <li><a href="{% url 'trip:accommodations-detail' s.id %}">{{s.name}}</a></li>
-          {% endif %}
-          {% endfor %}
-      </ul>
-    </div>
-
-    {% else %}
-    <h3> Hey! You forgot to search! </h3>
-    {% endif %}
-  </div>
-
-</div>
-{% endblock %}
+  </body>
+</html>

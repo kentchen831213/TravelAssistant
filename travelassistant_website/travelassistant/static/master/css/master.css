@@ -1,0 +1,93 @@
+
+:root {
+  /* --main-color:#33CCFF; */
+  --main-color:#50D7F6;
+  --sec-color:#95C2CD;
+  /* --sec-color:#DADADA; */
+  
+  --background-color-1:#FDFDFD;
+  /* --background-color-2:#DADADA; */
+  --background-color-2:#C5D7E2;
+  --header-color-1:#FDFDFD;
+  --header-color-2:#5D5D5D;
+}
+
+#navbar{
+  /* background-color: var(--main-color); */
+  color: var(--background-color-2);
+}
+
+.footer{
+  background-color: var(--main-color);
+  color: var(--background-color-1);
+}
+
+/* #submitbutton{
+  color: var(--main-color);
+  text-align:center;
+} */
+
+#submitbutton{
+  background: var(--main-color);
+  color: var(--header-color-2);
+  border-style: outset;
+  border-color: var(--background-color-2);
+  height: 30px;
+  width: 120px;
+  font: bold15px 'Noto Sans';
+  text-shadow: none;
+  text-align: center;
+}
+#submitbutton-long{
+  background: var(--main-color);
+  color: var(--header-color-2);
+  border-style: outset;
+  border-color: var(--background-color-2);
+  height: 30px;
+  /* width: 180px; */
+  font: bold15px 'Noto Sans';
+  text-shadow: none;
+  text-align: center;
+}
+
+
+h1{
+  color: var(--header-color-1);
+  font-family: 'Noto Sans';
+}
+
+h2{
+  color: var(--header-color-1);
+  font-family: 'Noto Sans';
+}
+
+/* .jumbotron h2{
+    color: white;
+} */
+
+.jumbotron{
+    text-align:center;
+    background-color: var(--background-color-2);
+}
+
+.col-lg-4 col-xs-12 thumbnail.img {
+  width: 200px; /* You can set the dimensions to whatever you want */
+  height: 200px;
+  object-fit: cover;
+}
+
+th{
+  text-align:center;
+}
+
+.row {
+  display: flex;
+}
+
+.left-column {
+  flex: 30%;
+}
+
+.right-column {
+  flex: 70%;
+}

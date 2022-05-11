@@ -1,19 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} {% include "manager.html" %}
+  <script>
+    function initialize(){
+        const myLatLng = {lat:{{object.latitude}}, lng:{{object.longitude}}};
+        // console.log(myLatLng);
+        var mapProp = {
+            center:myLatLng,
+            zoom:15,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
 
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-    <h1>{{object.a_name}}</h1>
-    <ul style="list-style-type:none;">
-        <li>category - {{object.category}}</li>
-        <li>city - {{object.city_name}}</li>
-        <li>ranking - {{object.ranking}}</li>
-        <li>address - {{object.a_address}}</li>
-    </ul>
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-    <form method="POST"> 
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <input type='submit' value='comment'>
-    </form>
-</div>
-{% endblock %}
+        marker=new google.maps.Marker({
+            position:{lat:{{object.latitude}}, lng:{{object.longitude}}},
+            animation:google.maps.Animation.BOUNCE
+            });
+            marker.setMap(map);
+    };
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
+  <body>
+    {% include "navbar.html" %}
+    <br />
+    {% block content %}
+
+    <div class="container">
+      <div class="jumbotron" style="text-align: left">
+        <h2>{{object.a_name}}</h2>
+        <hr />
+        <div class="row">
+          <div class="left-column">
+            <img
+              src="{% static image %}"
+              width="256"
+              height="192"
+              style="vertical-align: top"
+              alt="{{ object.attraction_id }}"
+            />
+          </div>
+          <div class="right-column">
+            <div>
+              <ul style="list-style-type: none">
+                <h3>Information</h3>
+                <li><h5>Category : {{object.category}}</h5></li>
+                <li><h5>City : {{object.city_name.city_name}}</h5></li>
+                <li><h5>Ranking : {{object.ranking}}</h5></li>
+                <li><h5>Address : {{object.a_address}}</h5></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div id="googleMap" style="width:auto; height:300px;"></div>
+      </div>
+
+      <div class="container">
+        <hr />
+        <h3>Write Comment for {{object.r_name}} !</h3>
+        <form method="POST">
+          {% csrf_token %} {{ comment_form.as_p}}
+          <input class="btn btn-primary" type="submit" value="comment" />
+        </form>
+      </div>
+    </div>
+    <br />
+    <br />
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'bootstrap.html'%}
+{% load static %}
+
+
+{% block content %}
+
+
+<!-- <style>
+    table,
+    th,
+    td {
+        border: 1px solid rgba(29, 6, 99, 0.586);
+    }
+</style> -->
+
+<h1>{{my_id2}} in {{my_id}}</h1>
+
+<div class="container">
+    {% for obj in object %}
+    {% if my_id2 == "attractions" %}
+    <p>{{obj.3}}</p>
+    {% else %}
+    <p>{{obj.1}}</p>
+    {% endif %}
+    {% endfor %}
+
+</div>
+<div class='pagination justify-content-center'>
+    {% if object.has_previous %}
+    <a href='{% url "trip:city-spot" my_id my_id2  %}?page={{ object.previous_page_number }}'>Previous Page</a>
+    {% endif %}
+
+    <span class='mx-4'>
+        Page {{ object.number }} of {{ object.paginator.num_pages }}
+    </span>
+
+    {% if object.has_next %}
+    <a href='{% url "trip:city-spot" my_id my_id2  %}?page={{ object.next_page_number }}'> Next</a>
+    {% endif %}
+</div>
+
+
+{% endblock %}

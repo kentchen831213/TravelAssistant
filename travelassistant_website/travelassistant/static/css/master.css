@@ -1,0 +1,191 @@
+.ok {
+    color: palevioletred;
+}
+
+
+.wrapper {
+    max-width: 450px;
+    margin: 200px auto;
+}
+
+.wrapper .search-input {
+    background: #fff;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.search-input input {
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input.active input {
+    border-radius: 5px 5px 0 0;
+}
+
+.search-input.autocom-box {
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.search-input.active.autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    /* display: none; */
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
+}
+
+.autocom-box li:hover {
+    background: #5762b3;
+}
+
+.search-input .icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    line-height: 55px;
+    font-size: 20px;
+    color: #5c2c05;
+    cursor: pointer;
+}
+
+
+
+.modal-dialog {
+    width: 120%;
+    height: 80%;
+    margin: 50;
+    padding: 0;
+}
+
+.modal-content {
+    background-image: url(../images/world5.png);
+    background-size: 100% 100%;
+}
+
+
+.sugg {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+}
+
+.pin {
+    font-weight: 700;
+}
+
+.box {
+    background-image: url(../images/world.png);
+    /* background: pink; */
+    padding: 60px 50px;
+    margin-top: 60px;
+    margin-right: 150px;
+    margin-left: 150px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+.box2 {
+    background-image: url(../images/world2.png);
+    /* background: pink; */
+    padding: 60px 50px;
+    margin-top: 60px;
+    margin-right: 150px;
+    margin-left: 150px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    height: 600px;
+}
+
+
+ .btn {
+    background-color: rgb(207, 221, 234);
+    border: none;
+    color: rgb(7, 0, 0);
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+    margin: 30px; 
+} 
+
+/* Darker background on mouse-over */
+ .btn:hover {
+    background-color: rgb(157, 172, 216);
+} 
+
+.u-list {
+    width: 800px;
+    margin: 70px auto 0;
+}
+
+.content {
+    font-family: "Arial,sans-serif";
+    font-size: 48px;
+    line-height: 57px;
+    font-weight: 900;
+    letter-spacing: .02em;
+    margin-top: 350px;
+    color: rgb(241, 232, 232);
+    text-shadow: 1px 0 0 #fff;
+}
+
+.content2 {
+    font-family: "Arial,sans-serif";
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 15px;
+    color: rgb(241, 232, 232);
+}
+ 
+.btn2 {
+    margin-top: 10px;
+    padding: 14px 24px;
+    border-radius: 24px;
+    color: #554d60;
+    background-color: white;
+    border-color: black;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+.btn2_c {
+    font-family: "Arial,sans-serif";
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none !important;
+    color: black
+} 

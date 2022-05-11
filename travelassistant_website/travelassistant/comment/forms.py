@@ -22,9 +22,7 @@ from accounts.models import (
     Preference
 )
 
-
 def city_list():
-    # with connections['travel_db'].cursor() as cursor:
     with connections['default'].cursor() as cursor:
         cursor.execute("SELECT city_name FROM city")
         c = [item[0] for item in cursor.fetchall()]
@@ -38,16 +36,16 @@ def list_to_options(city_ls):
 
 class CommentForm(forms.Form):
 
-    comment_date = forms.DateField (widget=forms.TextInput(attrs={"placeholder": "Write your comment_date"}))
-    comment = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Write your comment"}))
-    rating_score = forms.IntegerField(widget=forms.TextInput(attrs={"placeholder": "rating from 1 to 5 points"}))
+    comment_date = forms.DateField (widget=forms.TextInput(attrs={"placeholder": "Write your comment_date",'style': 'width: 300px;', 'class': 'form-control'}))
+    comment = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Write your comment",'style': 'width: 300px;', 'class': 'form-control'}))
+    rating_score = forms.IntegerField(widget=forms.TextInput(attrs={"placeholder": "rating from 1 to 5 points",'style': 'width: 300px;', 'class': 'form-control'}))
 
 
 class CommentBoxSearchForm(forms.Form):
 
     spot_ls = [('Select a Category','Select a Category')] + list_to_options(['Restaurants', 'Attractions', 'Accommodations'])
 
-    spot = forms.ChoiceField(label='What to Search', choices=spot_ls)
+    spot = forms.ChoiceField(label='What to Search', choices=spot_ls, widget=forms.Select(attrs={'class':'form-select form-select-lg mb-3'}))
     keyword = forms.CharField(label="Search", max_length=255,
                               widget=forms.TextInput(attrs={'class': 'form-control'}))
 
@@ -57,7 +55,3 @@ class CommentBoxSearchForm(forms.Form):
         if spot == 'Select a Category':
             raise forms.ValidationError("Please Select Restaurants, Attractions, or Accommodations!")
         return spot
-
-    #with connection.cursor() as cursor:
-    #         cursor.execute("INSERT INTO restauratns_comments(comment_id, user_id, restaurant_id,comment_date,comment,comment_likes) VALUES (%s,%s,%s)",
-    #         [comment_id, user_id, restaurant_id,comment_date,comment,rating])

@@ -1,0 +1,61 @@
+{% extends 'bootstrap.html'%}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+    <hr>
+    <!-- Section 2 -->
+    <!-- Advanced Search -->
+    <h1>Advanced Search</h1>
+    <h3>Tell us what attractions you are interested and what type of food you love!</h3>
+    <h3>Choose where you live and the city and let us guide you!</h3>
+    <div class="form">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form_result.city.label_tag}}
+                {{ form_result.city}}
+            </div>
+            <div class="form-group">
+                {{ form_result.attraction_category.label_tag}}
+                Keywords for attractions categories, e.g. museum.
+                {{ form_result.attraction_category}}
+
+                <br>
+                {{ form_result.restaurant_category.label_tag}}
+                Keywords for resstaurants categories, e.g. japanese.
+                {{ form_result.restaurant_category}}
+
+                <br>
+                {{ form_result.accommodations_keyword.label_tag}}
+                Keywords for where you live.
+                {{ form_result.accommodations_keyword}}
+            </div>
+            <input name="submit" type="submit" value="Choose where you live in the city?">
+        </form>
+    </div>
+
+
+    <hr>
+    <!-- Add Results Here -->
+    <!-- No results showed on the start page -->
+    <div>
+        {% if form_result.is_valid and form_result.cleaned_data %}
+        <div>
+            <h3>Please Tell Us Where You Live in {{form_result.cleaned_data.city}}</h3>
+            </br>
+            <!-- {{result_list}} -->
+            <ul style="list-style-type:none;">
+                {% for s in result_list %}
+                <li><a href="{% url 'trip:advanced-accommodations-detail' s.id %}">{{s.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

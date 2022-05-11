@@ -35,22 +35,38 @@ def list_to_options(city_ls):
         choices = choices + [(x, x)]
     return choices
 
+class MainPageForm(forms.Form):
+    city = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": "Your city", "class":"form-select"}))
+
+    def clean_city(self, *args, **kwargs):
+        city = self.cleaned_data.get("city")
+        ls = city_list()
+        if city not in ls:
+            raise forms.ValidationError("This is not a valid city")
+        return city
+    def clean_spot(self, *args, **kwargs):
+        spot = self.cleaned_data.get("spot")
+        ls = ['restaurants', 'attractions', 'accommodations']
+        if spot not in ls:
+            raise forms.ValidationError("This is not a valid input")
+        return spot
+
 class TripSearchBoxForm(forms.Form):
     city_ls = city_list()
     city_ls = [('Select a City','Select a City')] + list_to_options(city_ls)
     spot_ls = [('Select a Category','Select a Category')] + list_to_options(['Restaurants', 'Attractions', 'Accommodations'])
 
-    city = forms.ChoiceField(label='City', choices=city_ls)
-    spot = forms.ChoiceField(label='What to Search', choices=spot_ls)
+    city = forms.ChoiceField(label='City', choices=city_ls, widget=forms.Select(attrs={'class':'form-select form-select-lg mb-3'}))
+    spot = forms.ChoiceField(label='What to Search', choices=spot_ls, widget=forms.Select(attrs={'class':'form-select form-select-lg mb-3'}))
     keyword = forms.CharField(label="Search", max_length=255,
-                              widget=forms.TextInput(attrs={'class': 'form-control'}))
-    
+                              widget=forms.TextInput(attrs={'class': 'form-control', "class":"form-control"}))
+
     def clean_city(self):
         city = self.cleaned_data.get("city")
         if city == 'Select a City':
             raise forms.ValidationError("Please Select a City!")
         return city
-    
+
     def clean_spot(self):
         spot = self.cleaned_data.get("spot")
         if spot == 'Select a Category':
@@ -61,15 +77,15 @@ class AdvancedSearchForm(forms.Form):
     city_ls = city_list()
     city_ls = [('Select a City','Select a City')] + list_to_options(city_ls)
 
-    city = forms.ChoiceField(label='City', choices=city_ls)
+    city = forms.ChoiceField(label='City', choices=city_ls, widget=forms.Select(attrs={'class':'form-select form-select-lg mb-3'}))
     # spot = forms.ChoiceField(label='What to Search', choices=spot_ls)
-    
+
     # attraction_category = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": "Where do you want to go"}))
     attraction_category = forms.CharField(required = False, help_text="Keywords for attractions categories, e.g. museum.", label="Where do you want to go?", max_length=255,
                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    restaurant_category = forms.CharField(required = False, help_text="Keywords for resstaurants categories, e.g. japanese.",label="What do you want to eat?", max_length=255,
+    restaurant_category = forms.CharField(required = False, help_text="Keywords for resstaurants categories, e.g. japanese.", label="What do you want to eat?", max_length=255,
                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    accommodations_keyword = forms.CharField(required = False, help_text="Keywords for where you live.",label="Where you live?", max_length=255,
+    accommodations_keyword = forms.CharField(required = False, help_text="Keywords for where you live.", label="Where you live?", max_length=255,
                               widget=forms.TextInput(attrs={'class': 'form-control'}))
     # restaurant_category = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": "What do you want to eat"}))
 
@@ -78,7 +94,7 @@ class AdvancedSearchForm(forms.Form):
         if city == 'Select a City':
             raise forms.ValidationError("Please Select a City!")
         return city
-    
+
     # def clean_spot(self):
     #     spot = self.cleaned_data.get("spot")
     #     if spot == '':

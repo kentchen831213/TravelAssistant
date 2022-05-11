@@ -9,11 +9,17 @@ urlpatterns = [
     # url(r'trip_base/$', include('trip.urls', namespace='trip')),
     # url(r'^trip_base/$', views.TripPage.as_view(), name='trip_base'),
     path('', views.trip_search_view, name='trip_home'),
+    path('package_search', views.package_search_view, name='package_search'),
     path('trip_search_result/', views.trip_search_view, name='trip-search-result'),
     path('restaurants/<int:restaurant_id>/', views.restaurants_detail_view, name='restaurants-detail'),
     path('accommodations/<int:accommodation_id>/', views.accommodations_detail_view, name='accommodations-detail'),
     path('advanced_accommodations/<int:accommodation_id>/', views.advanced_accommodations_detail_view, name='advanced-accommodations-detail'),
     # path('advanced_accommodations/<int:accommodation_id>/<int:attraction_category>/<int:restaurant_category>', views.advanced_accommodations_detail_view, name='advanced-accommodations-detail'),
     path('attractions/<int:attraction_id>/', views.attractions_detail_view, name='attractions-detail'),
+
+    path('city_spot/<str:my_id>/<str:my_id2>/', views.city_spot_view, name='city-spot'),
+    path('advance_search/', views.advance_search_view, name='advance-search'),
+    path('home', views.home_view, name='home'),
+
     # path('trip_search_result/', views.advanced_search_view, name='advanced-search'),
 ]

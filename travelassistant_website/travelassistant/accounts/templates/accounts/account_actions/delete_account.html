@@ -1,18 +1,27 @@
-{% extends "base.html" %}
+
+
+<!doctype html>
+<html lang="en">
 {% load static %}
-{% block content %}
-<div class="container">
-    <!-- Delete the Account -->
-    <div>
-        <h1>Are You Sure You Want to Delete The Account?</h1>
+{% include "manager.html" %}
+  <body>
+    {% include "navbar.html" %}
+    <br>
+    {% block content %}
+    <div class="container">
+        <!-- Delete the Account -->
         <div>
-            <form method="POST">
-                {% csrf_token %}
-                <input name="submit" type="submit" value="Delete My Account">
-                <input name="submit" type="submit" value="Let me reconsider it...">
-            </form>
+            <h1>Are You Sure You Want to Delete The Account?</h1>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" name="submit" type="submit" value="Delete My Account">
+                    <input class="btn btn-success" name="submit" type="submit" value="Let me reconsider it...">
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

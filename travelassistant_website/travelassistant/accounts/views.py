@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from matplotlib.style import context
 # from .models import Users, get_user_by_user_id, get_user_by_email, is_user_duplicate, create_new_user
 
 from accounts.models import (
@@ -6,11 +7,12 @@ from accounts.models import (
     Preference
 )
 
+from trip.forms import TripSearchBoxForm, AdvancedSearchForm
 from .forms import LogInForm, SignUpForm, PersonalpicForm
 from django.db import connections
 from django.views.generic import RedirectView
 from django.http import Http404
-
+from passlib.hash import pbkdf2_sha256
 
 
 def login(request):
@@ -18,7 +20,7 @@ def login(request):
     """
     if request.session.get('is_login', None):
         # The user is already signed in
-        return redirect("home")  # use the url name
+        return render(request, 'index.html', locals())  # use the url name
 
     if request.method == "POST":
         login_form = LogInForm(request.POST)
@@ -26,24 +28,22 @@ def login(request):
         if login_form.is_valid():
             input_user_id = login_form.cleaned_data['user_id']
             input_password = login_form.cleaned_data['password']
-            try:
-                user = Users.get_user_by_user_id(input_user_id)[0]
-                if user.password == input_password:
+            user = Users.get_user_by_user_id(input_user_id) # return a queryset
+            if user:
+                user = user[0]
+                if user.verify_password(input_password):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.user_id
-                    # request.session['user_name'] = user.u_name
-                    # if user.user_type == 'Manager':
-                    #     request.session['manager'] = True
-                    # else:
-                    #     request.session['manager'] = False
-                    # return redirect('/manager/')
-                    return redirect("trip")
+
+                    context = {
+                        'trip_search_box_form': TripSearchBoxForm(),
+                        'advanced_search_form': AdvancedSearchForm(),
+                    }
+                    return render(request, 'index.html', context)
                 else:
                     message = "Wrong Password!"
-            except:
-                message = "The UserID '{}' Does Not Exist!".format(
-                    input_user_id)
-
+            else:
+                message = "The UserID '{}' Does Not Exist!".format(input_user_id)
         return render(request, 'accounts/login.html', locals())
 
     login_form = LogInForm()
@@ -56,8 +56,7 @@ def signup(request):
     """
     if request.session.get('is_login', None):
         # The user cannot create a new account when he/she is already signed in
-        # return redirect("/manager/")
-        return redirect("home")
+        return render(request, 'index.html', locals())
 
     if request.method == "POST":
         signup_form = SignUpForm(request.POST, request.FILES)
@@ -86,7 +85,9 @@ def signup(request):
             if is_occupied:
                 return render(request, 'accounts/signup.html', locals())
 
-            Users.create_new_user(user_id=input_user_id, password=input_password, first_name=input_first_name,
+            enc_password = pbkdf2_sha256.encrypt(input_password)
+
+            Users.create_new_user(user_id=input_user_id, password=enc_password, first_name=input_first_name,
                                   last_name=input_last_name, gender=input_gender, email=input_email, phone=input_phone, city=input_city, birth_date=input_birth_date)
 
             return redirect("/accounts/login")
@@ -100,12 +101,10 @@ def logout(request):
     User logout
     """
     if not request.session.get('is_login', None):
-        # return redirect("/manager/")
-        return redirect("home")
+        return render(request, 'index.html', locals())
 
     request.session.flush()
-    # return redirect("/manager/")
-    return redirect("home")
+    return render(request, 'index.html', locals())
 
 
 def account_actions_view(request):
@@ -116,12 +115,12 @@ def account_actions_view(request):
     # try:
     user_id = request.session['user_id']
     user = Users.get_user_by_user_id(user_id=user_id)[0]
-    personalimage = PersonalpicForm(request.POST, request.FILES)
+    # user = Users.get_user_by_user_id(user_id=user_id).first()
+    # personalimage = PersonalpicForm(request.POST, request.FILES)
 
     context = {
         "user": user,
-        "userimage": personalimage
-
+        # "userimage": personalimage
     }
     return render(request, 'accounts/account_actions.html', context)
     # except:
@@ -131,6 +130,7 @@ def account_actions_view(request):
 def update_account_view(request):
 
     user = Users.get_user_by_user_id(request.session['user_id'])[0]
+    # user = Users.get_user_by_user_id(request.session['user_id']).first()
 
     if request.method == "POST":
         update_form = SignUpForm(request.POST)
@@ -167,6 +167,7 @@ def update_account_view(request):
                                          last_name=input_last_name, gender=input_gender, email=input_email, phone=input_phone, city=input_city, birth_date=input_birth_date)
 
             user = Users.get_user_by_user_id(input_user_id)[0]
+            # user = Users.get_user_by_user_id(input_user_id).first()
             request.session['user_id'] = user.user_id
             message = 'Successfully Update Your Account'
 
@@ -184,21 +185,18 @@ def update_account_view(request):
     update_form = SignUpForm(initial=init_value)
     return render(request, "accounts/account_actions/update_account.html", locals())
 
-
 def delete_account_view(request):
     if request.method == "POST":
         if request.POST['submit'] == "Delete My Account":
             user_id = request.session['user_id']
             with connections['default'].cursor() as cursor:
-                query = "DELETE FROM users WHERE user_id='{u}';".format(
-                    u=user_id)
-                cursor.execute(query)
+                cursor.execute("DELETE FROM users WHERE user_id='%s';" % user_id)
 
             request.session.flush()
-            return redirect("home")
+            return render(request, 'index.html', locals())
 
         elif request.POST['submit'] == "Let me reconsider it...":
-            return redirect("trip")
+            return render(request, 'index.html', locals())
 
     return render(request, "accounts/account_actions/delete_account.html", locals())
 

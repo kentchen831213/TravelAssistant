@@ -1,0 +1,213 @@
+<style>
+    .card-img-overlay {
+        margin-left: 10%;
+        margin-right: 10%;
+        /* display: flex; */
+        /* justify-content: center; */
+    }
+</style>
+
+<!-- Section 1 -->
+<!-- Search by Keywords -->
+<!-- <div class="jumbotron jumbotron-image shadow" style="background-image: url('/static/trippage/trip1image.jpg');"> -->
+<div class="card bg-dark text-white">
+    <img class="card-img" src='/static/trippage/trip1image_new.jpg' alt="Card image" style="height: 25vw; object-fit: cover;">
+    <div class="card-img-overlay">
+        <br>
+        <h2 class="card-title" style="color: white;">Already know where to go?</h2>
+        <div class="form">
+            <form method="POST">
+                {% csrf_token %}
+                <!-- {{ trip_search_box_form.as_p }} -->
+                <br>
+                <div class="form-group">
+                    <!-- {{ trip_search_box_form.city.label_tag }} -->
+                    <!-- {{ trip_search_box_form.spot.label_tag }} -->
+                    {{ trip_search_box_form.city}}
+                    {{ trip_search_box_form.spot}}
+                </div>
+
+                <div class="form-group">
+                    <!-- {{ trip_search_box_form.keyword.label_tag }} -->
+                    <h4><b>Kewords</b></h4>
+                    {{ trip_search_box_form.keyword}}
+                </div>
+                <br>
+                <input class="btn btn-primary" name="submit" type="submit" value="Search" id="submitbutton">
+                <!-- <button type="submit" class="btn btn-primary" value="Search">Search</button> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+<!-- Section 2 -->
+<!-- Advanced Search -->
+<!-- <div class="jumbotron jumbotron-image shadow" style="background-image: url('/static/trippage/trip2image.jpg');"> -->
+<div class="card bg-dark text-white">
+    <img class="card-img" src='/static/trippage/trip2image.jpg' alt="Card image" style="height: 38%; object-fit: cover;">
+    <div class="card-img-overlay">
+        <h2 style="color: white;">Want more specific?</h2>
+        <h3 style="color: white;">Tell us what attractions you are interested and what type of food you love!</h3>
+        <h3 style="color: white;">Choose where you live let us guide you!</h3>
+        <div class="form">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+            {{ advanced_search_form.city.label_tag}}
+            {{ advanced_search_form.city}}
+            </div>
+            <div class="form-group">
+            {{ advanced_search_form.attraction_category.label_tag}}
+            <!-- <p style="color: white;">Keywords for attractions categories, e.g. museum.</p> -->
+            {{ advanced_search_form.attraction_category}}
+
+            <br style="color: white;">
+            {{ advanced_search_form.restaurant_category.label_tag}}
+            <!-- <p style="color: white;">Keywords for resstaurants categories, e.g. japanese.</p> -->
+            {{ advanced_search_form.restaurant_category}}
+
+            <br>
+            {{ advanced_search_form.accommodations_keyword.label_tag}}
+            <!-- <p style="color: white;">Keywords for where you live.</p> -->
+            {{ advanced_search_form.accommodations_keyword}}
+            </div>
+            <br>
+            <input class="btn btn-primary" name="submit" type="submit" value="Choose where you live in the city" id="submitbutton-long">
+        </form>
+        </div>
+    </div>
+    </div>
+
+    <hr>
+
+<div class="jumbotron">
+    <h2>Need our recommendations?</h2>
+        <form action='/trip/package_search' method="GET">
+        <hr>
+        <!-- <select id="city-select" name='city' style="background-color: #C5D7E2; color: white;"> -->
+        <select class="form-select form-select-lg mb-3" id="city-select" name='city'>
+            <option selected="selected" disabled>Select A City</option>
+            <option value="Austin">Austin</option>
+            <option value="Boston">Boston</option>
+            <option value="Chicago">Chicago</option>
+            <option value="New York">New York</option>
+        </select>
+        <br>
+        <div class="row">
+            <div class="col-lg-4 col-xs-12 thumbnail ">
+            <br>
+            <img src="https://www.telegraph.co.uk/content/dam/Travel/Destinations/North%20America/USA/Las%20Vegas/las-vegas-lead-image-xlarge.jpg?imwidth=640" alt="" width="300" height="400" >
+            <hr>
+            <p style="text-align:center">Fun</p>
+            <div class="col-sm-4">
+
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='attractions_type1'>
+                    <option selected="selected" disabled>Select A Type of Attractions</option>
+                    <option value="Museum">Museum</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Park">Park</option>
+                    <option value="Amusement Park">Amusement Park</option>
+                    <option value="Beach">Beach</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='attractions_type2'>
+                    <option selected="selected" disabled>Select A Type of Attractions</option>
+                    <option value="Museum">Museum</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Park">Park</option>
+                    <option value="Amusement Park">Amusement Park</option>
+                    <option value="Beach">Beach</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='attractions_type3'>
+                    <option selected="selected" disabled>Select A Type of Attractions</option>
+                    <option value="Museum">Museum</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Park">Park</option>
+                    <option value="Amusement Park">Amusement Park</option>
+                    <option value="Beach">Beach</option>
+                </select>
+                <p></p>
+            </div>
+            </div>
+
+
+
+            <div class="col-lg-4 col-xs-12 thumbnail ">
+            <br>
+            <img src="https://media-cdn.tripadvisor.com/media/photo-s/1a/c3/e1/9d/ocean-coral-spring.jpg" alt="" width="280" height="365">
+            <hr>
+            <p style="text-align:center">Hotel</p>
+            <div class="col-sm-4">
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name="hotel_price">
+                    <option selected="selected" disabled>Select A Hotel Price Range</option>
+                    <option value="Less than $50">Less than $50</option>
+                    <option value="$50-$100">$50-$100</option>
+                    <option value="$100-$150">$100-$150</option>
+                    <option value="$150-$200">$150-$200</option>
+                    <option value="More than $200">More than $200</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='people_count'>
+                    <option selected="selected" disabled>Choose The Number of People</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3-4">3-4</option>
+                    <option value="5-10">5-10</option>
+                    <option value="More than 10">More than 10</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='rooms_count'>
+                    <option selected="selected" disabled>Choose The Number of Rooms</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3-4">3-4</option>
+                    <option value="More than 5 rooms">More than 5 rooms</option>
+                </select>
+                <p></p>
+            </div>
+            </div>
+
+
+            <div class="col-lg-4 col-xs-12 thumbnail ">
+            <br>
+            <img src="https://images.squarespace-cdn.com/content/v1/53b839afe4b07ea978436183/1608506169128-S6KYNEV61LEP5MS1UIH4/traditional-food-around-the-world-Travlinmad.jpg" alt="" width="300" height=400">
+            <hr>
+            <p style="text-align:center">Food</p>
+            <div class="col-sm-4">
+
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='restaurant_price_level'>
+                    <option selected="selected" disabled>Select The Price Level for Restaurants</option>
+                    <option value="$">$</option>
+                    <option value="$$">$$</option>
+                    <option value="$$$">$$$</option>
+                    <option value="$$$$">$$$$</option>
+                    <option value="$$$$$">$$$$$</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='restaurant_types'>
+                    <option selected="selected" disabled>Select The Types of Restaurants</option>
+                    <option value="American">American</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="French">French</option>
+                </select>
+                <p></p>
+                <select class="form-select form-select-lg mb-3" style="width:25em;" name='rating'>
+                    <option selected="selected" disabled>Select The Rating of Restaurants</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <p></p>
+                </div>
+            </div>
+            </div>
+        <input class="btn btn-primary" type="submit" value="Select" id="submitbutton">
+    <!-- </div> -->
+</div>
+<br>

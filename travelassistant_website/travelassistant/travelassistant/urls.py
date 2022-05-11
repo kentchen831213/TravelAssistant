@@ -20,6 +20,7 @@ from django.conf import settings #add this
 from . import views
 from django.conf.urls.static import static #add this
 
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 # from trip.views import test, search_restaurants
@@ -35,4 +36,6 @@ urlpatterns = [
     # re_path(r'^thanks/$', views.ThankPage.as_view(), name='thanks'),
     # path(r'test', test),
     # url(r'trip', search_restaurants, name='search_restaurants'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()

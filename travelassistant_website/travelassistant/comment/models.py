@@ -24,26 +24,23 @@ from accounts.models import (
 #         c = cursor.fetchall()
 #     return c
 
-
 def get_all_comment(db_name, user_id):
     with connections['default'].cursor() as cursor:
         if db_name == 'restaurants_comments':
-            query = "SELECT * FROM restaurants_comments JOIN restaurants USING(restaurant_id) where user_id = '{}';".format(user_id)
+            cursor.execute("SELECT * FROM restaurants_comments JOIN restaurants USING(restaurant_id) where user_id = %s;", [user_id])
 
         elif db_name == 'attractions_comments':
-            query = "SELECT * FROM attractions_comments JOIN attractions USING(attraction_id) where user_id = '{}';".format(user_id)
+            cursor.execute("SELECT * FROM attractions_comments JOIN attractions USING(attraction_id) where user_id = %s;", [user_id])
 
         elif db_name == 'accommodations_comments':
-            query = "SELECT * FROM accommodations_comments JOIN accommodations USING(accommodation_id) where user_id = '{}';".format(user_id)
+            cursor.execute("SELECT * FROM accommodations_comments JOIN accommodations USING(accommodation_id) where user_id = %s;", [user_id])
 
-        cursor.execute(query)
         c = cursor.fetchall()
     return c
 
 def delete_comment_by_id(db_name, comment_id):
     with connection.cursor() as cursor:
-        cursor.execute("DELETE FROM {db} WHERE comment_id={id}".format(db=db_name, id=comment_id))
-
+        cursor.execute("DELETE FROM %s WHERE comment_id=%s", [db_name, comment_id])
 
 class AttractionsComments(models.Model):
     comment_id = models.AutoField(primary_key=True)

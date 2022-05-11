@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+{% include "manager.html" %}
+  <body>
+    {% include "navbar.html" %}
+    <br>
+    {% block content %}
+
+    <div class="container">
+        <h1>Package Search Results</h1>
+        <hr>
+        
+        <!-- More Detail Information -->
+        <!-- Attraction -->
+        <div class="container">
+          <h2><i>Attractions for You !</i></h2>
+          {% for attraction_row in attraction_result_list %}
+          <div class="row">
+            <div class="left-column"><img src="{% static attraction_row.image %}" width="300" height="200"
+                style="vertical-align:top" alt="{{ attraction_row.id }}"></div>
+            <div class="right-column">
+              <h3>{{attraction_row.spot_name}}</h3>
+              <h4>{{attraction_row.spot_type}}</h4>
+              <p>
+                <b>Category : </b>{{attraction_row.category}} <br />
+                <b>Ranking : </b>{{attraction_row.ranking}} <br />
+                <b>Address : </b>{{attraction_row.address}} <br />
+                <b>Location : ({{attraction_row.latitude}}, {{attraction_row.longitude}}) </b>
+              </p>
+            </div>
+          </div>
+          <br>
+          {% endfor %}
+        </div>
+
+        <hr>
+        
+        <!-- Restaurants -->
+        <div class="container">
+          <h2><i>Restaurants for You !</i></h2>
+          {% for restaurant_row in restaurant_result_list %}
+          <div class="row">
+            <div class="left-column"><img src="{% static restaurant_row.image %}" width="300" height="200"
+                style="vertical-align:top" alt="{{ restaurant_row.id }}"></div>
+            <div class="right-column">
+              <h3>{{restaurant_row.spot_name}}</h3>
+              <h4>{{restaurant_row.spot_type}}</h4>
+              <p>
+                <b>Category : </b>{{restaurant_row.category}} <br />
+                <b>Average Rating : </b>{{restaurant_row.avg_rating}} <br />
+                <b>Address : </b>{{restaurant_row.address}} <br />
+                <b>Location : ({{restaurant_row.latitude}}, {{restaurant_row.longitude}}) </b> <br />
+                
+              </p>
+              <p><i>{{restaurant_row.description}}</i></p>              
+            </div>
+          </div>
+          <br>
+          {% endfor %}
+        </div>
+        
+        <hr>
+
+        
+        <!-- Accommodations -->
+        <div class="container">
+          <h2><i>Rooms for You !</i></h2>
+          {% for accommodation_row in accommodation_result_list %}
+          <div class="row">
+            <div class="left-column"><img src="{% static accommodation_row.image %}" width="300" height="200"
+                style="vertical-align:top" alt="{{ accommodation_row.id }}"></div>
+            <div class="right-column">
+              <h3>{{accommodation_row.spot_name}}</h3>
+              <h4>{{accommodation_row.spot_type}}</h4>
+              <p>
+                <b>Price Level : </b>$ {{accommodation_row.price_level}} <br />
+                <b>Average Rating : </b>{{accommodation_row.avg_rating}} <br />
+                <b>Bedrooms : </b>{{accommodation_row.bedrooms}} / <b>Beds : </b>{{accommodation_row.beds}} <br />
+                <b>Bathroom : </b>{{accommodation_row.bathrooms}}<br />
+                <b>Location : ({{accommodation_row.latitude}}, {{accommodation_row.longitude}}) </b> <br />
+              </p>
+            </div>
+          </div>
+          <br>
+          {% endfor %}
+        </div>
+
+    </div>
+    {% endblock %}
+  </body>
+</html>

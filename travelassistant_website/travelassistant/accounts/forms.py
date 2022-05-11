@@ -20,18 +20,15 @@ from .models import *
 
 
 class LogInForm(forms.Form):
-    user_id = forms.CharField(label="UserID", max_length=128)
+    user_id = forms.CharField(label="UserID", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(
-        label="Password", max_length=256, widget=forms.PasswordInput)
+        label="Password", max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     # captcha = CaptchaField(label='Verification code')
 
-
 class SignUpForm(forms.Form):
-    # class Meta:
-    #     model = Users
         gender = [
-            ('male', 'male'),
-            ('female', 'female'),
+            ('male', 'Male'),
+            ('female', 'Female'),
         ]
         user_id = forms.CharField(label="UserID", max_length=128,
                                   widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -39,7 +36,7 @@ class SignUpForm(forms.Form):
             attrs={'class': 'form-control'}))
         last_name = forms.CharField(label="Last Name", max_length=128, widget=forms.TextInput(
             attrs={'class': 'form-control'}))
-        gender = forms.ChoiceField(label='Gender', choices=gender)
+        gender = forms.ChoiceField(label='Gender', choices=gender, widget=forms.Select(attrs={'class':'form-select form-select-lg mb-3'}))
         email = forms.EmailField(
             label="E-mail", widget=forms.EmailInput(attrs={'class': 'form-control'}))
         phone = forms.CharField(label="Phone", max_length=128, widget=forms.TextInput(

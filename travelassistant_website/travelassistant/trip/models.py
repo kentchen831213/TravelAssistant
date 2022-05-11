@@ -32,33 +32,14 @@ class Accommodations(models.Model):
         db_table = 'accommodations'
 
     def get_absolute_url(self):
-        # return f"/product/{self.id}/"
         return reverse("travel:accommodations-detail", kwargs={"my_id": self.id})
-
-    def get_user_by_id(my_id):
-        return Accommodations.objects.raw("SELECT * FROM accommodations WHERE id = '{}';".format(my_id))
-
-# class AccommodationsComments(models.Model):
-#     comment_id = models.AutoField(primary_key=True)
-#     user_id = models.ForeignKey('Users', models.DO_NOTHING)
-#     accommodation = models.ForeignKey(Accommodations, models.DO_NOTHING)
-#     comment_date = models.DateField(blank=True, null=True)
-#     rating = models.FloatField(blank=True, null=True)
-#     comment = models.TextField(blank=True, null=True)
-#     comment_likes = models.IntegerField(blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'accommodations_comments'
-#         unique_together = (('comment_id', 'user_id', 'accommodation'),)
-
 
 class Attractions(models.Model):
     attraction_id = models.IntegerField(primary_key=True)
     ranking = models.IntegerField(blank=True, null=True)
     city_name = models.ForeignKey('City', models.DO_NOTHING, db_column='city_name', blank=True, null=True)
     a_name = models.CharField(max_length=255, blank=True, null=True)
-    categories = models.CharField(max_length=255, blank=True, null=True)
+    category = models.CharField(max_length=255, blank=True, null=True)
     a_address = models.TextField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -66,24 +47,9 @@ class Attractions(models.Model):
     class Meta:
         managed = False
         db_table = 'attractions'
+
     def get_absolute_url(self):
-        # return f"/product/{self.id}/"
         return reverse("travel:attractions-detail", kwargs={"my_id": self.id})
-
-
-# class AttractionsComments(models.Model):
-#     comment_id = models.AutoField(primary_key=True)
-#     user_id = models.CharField(max_length=255)
-#     attraction = models.ForeignKey(Attractions, models.DO_NOTHING)
-#     comment_date = models.DateField(blank=True, null=True)
-#     rating = models.FloatField(blank=True, null=True)
-#     comment = models.TextField(blank=True, null=True)
-#     comment_likes = models.IntegerField(blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'attractions_comments'
-#         unique_together = (('comment_id', 'user_id', 'attraction'),)
 
 class City(models.Model):
     city_name = models.CharField(primary_key=True, max_length=255)
@@ -111,7 +77,6 @@ class Laundry(models.Model):
         managed = False
         db_table = 'laundry'
 
-
 class Markets(models.Model):
     market_id = models.IntegerField(primary_key=True)
     city_name = models.ForeignKey(City, models.DO_NOTHING, db_column='city_name')
@@ -120,25 +85,10 @@ class Markets(models.Model):
     m_address = models.CharField(max_length=255, blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-
+    
     class Meta:
         managed = False
         db_table = 'markets'
-
-
-# class Preference(models.Model):
-#     users_user = models.OneToOneField('Users', models.DO_NOTHING, primary_key=True)
-#     outdoor_love_type = models.CharField(max_length=255)
-#     food_preference = models.CharField(max_length=255)
-#     budget_type = models.CharField(max_length=255)
-#     art_type = models.CharField(max_length=255)
-#     museum_type = models.CharField(max_length=255)
-#     city_trip_type = models.CharField(max_length=255)
-#     transportation_type = models.CharField(max_length=255)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'preference'
 
 class Restaurants(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
@@ -161,20 +111,4 @@ class Restaurants(models.Model):
         return self.r_name
 
     def get_absolute_url(self):
-        # return f"/product/{self.id}/"
         return reverse("travel:restaurants-detail", kwargs={"my_id": self.restaurant_id})
-
-
-# class RestaurantsComments(models.Model):
-#     comment_id = models.AutoField(primary_key=True)
-#     user = models.ForeignKey('Users', models.DO_NOTHING)
-#     restaurant = models.ForeignKey(Restaurants, models.DO_NOTHING)
-#     comment_date = models.DateField(blank=True, null=True)
-#     rating = models.FloatField(blank=True, null=True)
-#     comment = models.TextField(blank=True, null=True)
-#     comment_likes = models.IntegerField(blank=True, null=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'restaurants_comments'
-#         unique_together = (('comment_id', 'user', 'restaurant'),)

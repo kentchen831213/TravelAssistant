@@ -79,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'travelassistant.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -88,11 +87,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'travel_db',
         'USER': 'root',
-        'PASSWORD': 'Aa-405637074',
-        'HOST': 'localhost',
+        'PASSWORD': 'yycc1234',
+        'HOST': '35.226.166.250',
         'PORT': '3306',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

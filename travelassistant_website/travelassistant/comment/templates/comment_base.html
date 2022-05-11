@@ -1,0 +1,102 @@
+<h2>This is your comment!</h2>
+<h3>
+    {% if superstar %}
+      <img src="https://services.google.com/fh/files/helpcenter/points-badge_level_four.png" width="30" height="30"> Your are the Local Guides!</img>
+    {% else %}
+    {% endif  %}
+</h3>
+
+<div class="jumbotron" style=text-align:left;>
+    <h2>Your Comments for Restaurants</h2>
+    <br>
+    <table class="table" style="width:100%;">
+      <tr>
+          <th>Name</th>
+          <th>Comment Date</th>
+          <th>Comment content</th>
+          <th>Delete</th>
+          <th>Edit</th>
+      </tr>
+      {% for c in restaurant_comment_result %}
+
+        <tr>
+          <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+              {% csrf_token %}
+              <td>{{c.r_name}}</td>
+              <td>{{c.date}}</td>
+              <td>{{c.comment}}</td>
+              <!-- <td><button>Delete</button></td> -->
+              <td><input name="submit" type="submit" value="Delete Restaurants Comment"></td>
+          </form>
+          <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td><input name="submit" type="submit" value="Edit Restaurants Comment"></td>
+          </form>
+        </tr>
+      {% endfor %}
+    </table>
+</div>
+
+<hr>
+
+<div class="jumbotron" style=text-align:left;>
+    <h2>Your Comments for Accommodations</h2>
+    <br>
+    <table class="table" style="width:100%;">
+      <tr>
+        <th>Name</th>
+        <th>Comment Date</th>
+        <th>Comment content</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+      {% for c in accommodations_comment_result %}
+        <tr>
+          <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+              {% csrf_token %}
+              <td>{{c.ac_name}}</td>
+              <td>{{c.date}}</td>
+              <td>{{c.comment}}</td>
+              <!-- <td><button>Delete</button></td> -->
+              <td><input name="submit" type="submit" value="Delete Accommodations Comment"></td>
+          </form>
+          <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td><input name="submit" type="submit" value="Edit Accommodations Comment"></td>
+          </form>
+        </tr>
+      {% endfor %}
+    </table>
+</div>
+
+<hr>
+
+<div class="jumbotron" style=text-align:left;>
+  <h2>Your Comments for Attractions</h2>
+  <br>
+  <table class="table" style="width:100%;">
+    <tr>
+      <th>Name</th>
+      <th>Comment Date</th>
+      <th>Comment content</th>
+      <th>Delete</th>
+      <th>Edit</th>
+  </tr>
+    {% for c in attractions_comment_result %}
+      <tr>
+        <form class="" action="{% url 'comment:comment-delete' c.comment_id %}" method="POST">
+            {% csrf_token %}
+            <td>{{c.a_name}}</td>
+            <td>{{c.date}}</td>
+            <td>{{c.comment}}</td>
+            <!-- <td><button>Delete</button></td> -->
+            <td><input name="submit" type="submit" value="Delete Attractions Comment"></td>
+        </form>
+        <form class="" action="{% url 'comment:comment-edit' c.comment_id %}" method="POST">
+          {% csrf_token %}
+          <td><input name="submit" type="submit" value="Edit Attractions Comment"></td>
+        </form>
+      </tr>
+    {% endfor %}
+  </table>
+</div>

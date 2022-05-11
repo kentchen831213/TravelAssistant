@@ -1,58 +1,31 @@
-{% extends "base.html" %}
-{% block content %}
 
-<div class="container">
-
-  <hr>
-  <!-- Section 2 -->
-  <!-- Advanced Search -->
-  <h1>Advanced Search</h1>
-  <h3>Tell us what attractions you are interested and what type of food you love!</h3>
-  <h3>Choose where you live and the city and let us guide you!</h3>
-  <div class="form">
-    <form method="POST">
-      {% csrf_token %}
-      <div class="form-group">
-        {{ advanced_search_form.city.label_tag}}
-        {{ advanced_search_form.city}}
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  {% include "manager.html" %}
+  {% include "navbar.html" %}
+  <br>
+  <div class="container">
+    {% include "trip_search.html" %}
+    <hr>
+    <div class="jumbotron" style="text-align:left;">
+      <!-- Add Results Here -->
+      <!-- No results showed on the start page -->
+      <div>
+        {% if form_result.is_valid and form_result.cleaned_data %}
+        <div>
+          <h3>Please Tell Us Where You Live in {{form_result.cleaned_data.city}}</h3>
+          </br>
+          <!-- {{result_list}} -->
+          <ul style="list-style-type:none;">
+              {% for s in result_list %}
+              <li><a href="{% url 'trip:advanced-accommodations-detail' s.id %}">{{s.name}}</a></li>
+              {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </div>
-      <div class="form-group">
-        {{ advanced_search_form.attraction_category.label_tag}}
-        Keywords for attractions categories, e.g. museum.
-        {{ advanced_search_form.attraction_category}}
-        
-        <br>
-        {{ advanced_search_form.restaurant_category.label_tag}}
-        Keywords for resstaurants categories, e.g. japanese.
-        {{ advanced_search_form.restaurant_category}}
-
-        <br>
-        {{ advanced_search_form.accommodations_keyword.label_tag}}
-        Keywords for where you live.
-        {{ advanced_search_form.accommodations_keyword}}
-      </div>
-      <input name="submit" type="submit" value="Choose where you live in the city?">
-    </form>
-  </div>
-
-
-  <hr>
-  <!-- Add Results Here -->
-  <!-- No results showed on the start page -->
-  <div>
-    {% if form_result.is_valid and form_result.cleaned_data %}
-    <div>
-      <h3>Please Tell Us Where You Live in {{form_result.cleaned_data.city}}</h3>
-      </br>
-      <!-- {{result_list}} -->
-      <ul style="list-style-type:none;">
-          {% for s in result_list %}
-          <li><a href="{% url 'trip:advanced-accommodations-detail' s.id %}">{{s.name}}</a></li>
-          {% endfor %}
-      </ul>
     </div>
-    {% endif %}
   </div>
 
-</div>
-{% endblock %}
+</html>
